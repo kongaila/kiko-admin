@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+    <script src="../../js/public.js"></script>
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">论坛名称</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="name" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">论坛主</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="masterName" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">介绍</label>
+        <div class="layui-input-block">
+            <textarea name="description" readonly class="layui-textarea" placeholder=""></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">类型</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="typeName" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">关注数</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="attentionNum" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">帖子数</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="articleNum" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">成员数</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="memberNum" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">创建时间</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="createdAt" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">创建人</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="creater" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">状态</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="status" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">头像</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="headImg" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">关闭</button>
+        </div>
+    </div>
+</div>
+<script src="../../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+        console.log(window.location.host);
+        let reg = new RegExp("(^|&)uuid=([^&]*)(&|$)");
+        let r = window.location.search.substr(1).match(reg);
+        let uuid = unescape(r[2]);
+
+        $.ajax({
+            // headers: {
+            //     Authorization: localStorage.getItem(token)
+            // },
+            url: '/api/v1/club/' + uuid,
+            type: "get",
+            success: function (data) {
+                if (data.code === 200) {
+                    $("[name='masterName']").val(data.data.masterName);
+                    $("[name='name']").val(data.data.name);
+                    $("[name='headImg']").val(data.data.headImg);
+                    $("[name='description']").val(data.data.description);
+                    $("[name='typeName']").val(data.data.typeName);
+                    $("[name='attentionNum']").val(data.data.attentionNum);
+                    $("[name='articleNum']").val(data.data.articleNum);
+                    $("[name='memberNum']").val(data.data.memberNum);
+                    $("[name='createdAt']").val(data.data.createdAt);
+                    $("[name='creater']").val(data.data.creater);
+                    if (data.data.status === 0) {
+                        $("[name='status']").val("待审核");
+                    } else if (data.data.status === 1) {
+                        $("[name='status']").val("审核通过");
+                    } else if (data.data.status === 2) {
+                        $("[name='status']").val("审核驳回");
+                    }
+                }
+            }
+        });
+
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            var iframeIndex = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(iframeIndex);
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

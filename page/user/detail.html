@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+    <script src="../../js/public.js"></script>
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="userName" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">昵称</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="nick" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">手机号</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="phone" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">发帖数</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="postNum" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">评论数</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="commentNum" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">吧龄</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="age" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">评论数</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="num" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">创建时间</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="createdAt" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">创建人</label>
+        <div class="layui-input-block">
+            <input type="text" readonly name="creater" lay-reqtext="" placeholder="" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">关闭</button>
+        </div>
+    </div>
+</div>
+<script src="../../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+        let reg = new RegExp("(^|&)uuid=([^&]*)(&|$)");
+        let r = window.location.search.substr(1).match(reg);
+        let uuid = unescape(r[2]);
+
+        $.ajax({
+            headers: {
+                Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ3NjgyNzU5MTksImlhdCI6MTYxNDY3NTkxOSwiaXNzIjoiUWlxaWxpa2UiLCJ1c2VyTmFtZSI6Imtvbmdrb25nIiwidXVpZCI6IjFkNjMxYWQ2Yjg2NDQyYzE5OTZkMGQ3NzdhYmI4ODgzIn0.I_vbKenKyYx9Nu24N9nWdX4S-MKMB83XXovOG_GhXQg"
+            },
+            url: '/api/v1/user/detail',
+            type: "post",
+            data:{
+                userUuid:uuid,
+            },
+            success: function (data) {
+                if (data.code === 200) {
+                    $("[name='userName']").val(data.data.userName);
+                    $("[name='nick']").val(data.data.nick);
+                    $("[name='phone']").val(data.data.phone);
+                    $("[name='createdAt']").val(data.data.createdAt);
+                    $("[name='headImg']").val(data.data.headImg);
+                    $("[name='creater']").val(data.data.creater);
+                    $("[name='age']").val(data.data.age);
+                    $("[name='postNum']").val(data.data.postNum);
+                    $("[name='commentNum']").val(data.data.commentNum);
+
+                }
+            }
+        });
+
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            var iframeIndex = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(iframeIndex);
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

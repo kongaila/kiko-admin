@@ -68,6 +68,9 @@
             elem: '#currentTableId',
             url: '/api/v1/admin/admin/club',
             toolbar: '#toolbarDemo',
+            headers:{
+                Authorization: localStorage.getItem(token)
+            },
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
                 layEvent: 'LAYTABLE_TIPS',

@@ -1,4 +1,4 @@
-const ctx = window.location.host;
+const ctx = window.location.hostname;
 const imagePrefix = "http://" + ctx + ":8000/images/";
 const token = "adminToken";
 

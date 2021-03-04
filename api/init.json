@@ -59,7 +59,7 @@
         },
         {
           "title": "公告管理",
-          "href": "page/bulletin.html",
+          "href": "page/bulletin/bulletin.html",
           "icon": "fa fa-list-alt",
           "target": "_self"
         }

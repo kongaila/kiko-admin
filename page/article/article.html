@@ -68,6 +68,9 @@
             elem: '#currentTableId',
             url: '/api/v1/admin/admin/article',
             toolbar: '#toolbarDemo',
+            headers:{
+                Authorization: localStorage.getItem(token)
+            },
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
                 layEvent: 'LAYTABLE_TIPS',
@@ -78,7 +81,7 @@
                 {field: 'title', width: 150, title: '标题'},
                 {field: 'description', width: 200, title: '介绍'},
                 {field: 'typeName', width: 200, title: '类型'},
-                {field: 'openNum', width: 100, title: '点击数'},
+                {field: 'openNum', width: 100, title: '点击量'},
                 {field: 'num', width: 100, title: '评论数'},
                 {field: 'createdAt', width: 250, title: '创建时间'},
                 {field: 'uuid', width: 0, title: 'uuid'},

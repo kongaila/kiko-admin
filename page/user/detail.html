@@ -81,6 +81,12 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label required">头像</label>
+        <div class="layui-input-block">
+            <img id="headImg" style="width: 250px;height: 250px" class="layui-upload-img">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">关闭</button>
         </div>
@@ -98,7 +104,7 @@
 
         $.ajax({
             headers: {
-                Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ3NjgyNzU5MTksImlhdCI6MTYxNDY3NTkxOSwiaXNzIjoiUWlxaWxpa2UiLCJ1c2VyTmFtZSI6Imtvbmdrb25nIiwidXVpZCI6IjFkNjMxYWQ2Yjg2NDQyYzE5OTZkMGQ3NzdhYmI4ODgzIn0.I_vbKenKyYx9Nu24N9nWdX4S-MKMB83XXovOG_GhXQg"
+                Authorization: localStorage.getItem(token)
             },
             url: '/api/v1/user/detail',
             type: "post",
@@ -116,6 +122,7 @@
                     $("[name='age']").val(data.data.age);
                     $("[name='postNum']").val(data.data.postNum);
                     $("[name='commentNum']").val(data.data.commentNum);
+                    $("#headImg").attr("src", imagePrefix + data.data.headImg);
 
                 }
             }

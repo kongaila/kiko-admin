@@ -112,9 +112,9 @@
         let uuid = unescape(r[2]);
 
         $.ajax({
-            // headers: {
-            //     Authorization: localStorage.getItem(token)
-            // },
+            headers: {
+                Authorization: localStorage.getItem(token)
+            },
             url: '/api/v1/club/' + uuid,
             type: "get",
             success: function (data) {

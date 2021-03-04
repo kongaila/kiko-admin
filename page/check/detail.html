@@ -92,9 +92,9 @@
         let uuid = unescape(r[2]);
 
         $.ajax({
-            // headers: {
-            //     Authorization: localStorage.getItem(token)
-            // },
+            headers: {
+                Authorization: localStorage.getItem(token)
+            },
             url: '/api/v1/club/' + uuid,
             type: "get",
             success: function (data) {
@@ -124,9 +124,9 @@
         //监听提交 通过
         form.on('submit(checkSuccess)', function (data) {
             $.ajax({
-                // headers: {
-                //     Authorization: localStorage.getItem(token)
-                // },
+                headers: {
+                    Authorization: localStorage.getItem(token)
+                },
                 url: '/api/v1/admin/admin/check',
                 type: "post",
                 data: {
@@ -145,9 +145,9 @@
         //监听提交 不通过
         form.on('submit(checkFailed)', function (data) {
             $.ajax({
-                // headers: {
-                //     Authorization: localStorage.getItem(token)
-                // },
+                headers: {
+                    Authorization: localStorage.getItem(token)
+                },
                 url: '/api/v1/admin/admin/check',
                 type: "post",
                 data: {

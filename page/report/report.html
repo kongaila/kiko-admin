@@ -167,9 +167,9 @@
             if (obj.event === 'success') {
                 layer.confirm('确定通过吗？', function (index) {
                     $.ajax({
-                        // headers: {
-                        //     Authorization: localStorage.getItem(token)
-                        // },
+                        headers: {
+                            Authorization: localStorage.getItem(token)
+                        },
                         url: '/api/v1/admin/admin/report',
                         type: "post",
                         data: {
@@ -193,9 +193,9 @@
             } else if (obj.event === 'failed') {
                 layer.confirm('确定不通过吗？', function (index) {
                     $.ajax({
-                        // headers: {
-                        //     Authorization: localStorage.getItem(token)
-                        // },
+                        headers: {
+                            Authorization: localStorage.getItem(token)
+                        },
                         url: '/api/v1/admin/admin/report',
                         type: "post",
                         data: {

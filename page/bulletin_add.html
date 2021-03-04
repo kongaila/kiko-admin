@@ -51,9 +51,9 @@
             };
 
             $.ajax({
-                // headers: {
-                //     Authorization: localStorage.getItem(token)
-                // },
+                headers: {
+                    Authorization: localStorage.getItem(token)
+                },
                 url: '/api/v1/bulletin',
                 type: "post",
                 data:JSON.stringify(bulletin),
